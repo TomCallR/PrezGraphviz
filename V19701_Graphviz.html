@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Présentation Graphviz, Thomas Calladine, 24/07/2019</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+
+<!--page-break-before: always;-->
+
+<body>
+
+    <div class="w3-panel w3-center">
+        <h1>Bibliothèque graphviz</h1>
+    </div>
+
+
+
+    <!-- Domaine couvert par la bibliothèque : stats, machine learning, IA, ... -->
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Domaine</h2>
+        </div>
+        <p>Le domaine est la data visualisation.</p>
+        <p>Le module Python graphviz ne crée pas un outil de visualisation nouveau mais
+            permet de manipuler des outils déjà existants :</p>
+        <ul>
+            <li>le langage DOT de description de graphes</li>
+            <li>le logiciel Graphviz de traduction des fichiers DOT en "images" (de
+                formats divers)
+                représentant des graphes</li>
+        </ul>
+    </section>
+
+    <!-- Objectif(s) de la bibliothèque : pourquoi a-t-elle été mise en place ; 
+        à quelle problématique répond-elle. -->
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Objectifs</h2>
+        </div>
+
+        <p>Module Python graphviz :</p>
+        <ul>
+            <li>manipuler des fichiers DOT existants ou les générer</li>
+            <li>générer les représentations graphiques</li>
+            <li>le tout depuis Python, simplement, en manipulant des objets
+                (programmation orientée objets)</li>
+        </ul>
+
+        <p>Langage DOT et logiciel Graphviz :</p>
+        <ul>
+            <li>représenter des graphes orientés et non orientés (y compris très
+                complexes)
+                au sens de la théorie mathématique des graphes</li>
+            <li>déterminer automatiquement une disposition des noeuds et des arcs</li>
+            <li>utiliser des algorithmes puissants adaptés au type de graphe</li>
+            <li>obtenir un résultat visuellement satisfaisant</li>
+            <li>autoriser l'ajout de certaines contraintes</li>
+        </ul>
+    </section>
+
+    <!-- Communauté : qui a développé cette bibliothèque, qui la maintient, la communauté est-elle active -->
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Communauté</h2>
+        </div>
+
+        <p>Module Python graphviz :</p>
+        <ul>
+            <li>créateur :
+                <a href="https://home.uni-leipzig.de/sbank/">
+                    Sebastian Bank</a>,
+                doctorant en linguistique à l'Université de Leipzig
+                <div class="w3-card w3-center" style="width: 250px; margin: 5px 0">
+                    <img src="http://home.uni-leipzig.de/sbank/images/photo_mxp.jpg"
+                        alt="Sebastian Bank" />
+                </div>
+            </li>
+            <li>mainteneur : Sebastian Bank également</li>
+            <li>communauté au 21/07/2019 :
+                <ul>
+                    <li>sur Github: 548 étoiles et 106 forks</li>
+                    <li>sur Reddit : groupe de 49 membres, assez peu actif (dernier post
+                        il y a 3 mois)</li>
+                </ul>
+            </li>
+        </ul>
+
+        <p>Langage DOT et logiciel Graphviz :</p>
+        <ul>
+            <li>création à partir de la fin des années 1980 par une équipe des
+                laboratoires de recherche d'AT&T</li>
+            <li>mainteneurs : certains des créateurs et de nouveaux venus</li>
+            <li>communauté au 21/07/2019 :
+                <ul>
+                    <li>sur Gitlab: 379 étoiles, 63 forks et 135 projets dont
+                        le nom inclut le terme Graphviz au 21/07/2019</li>
+                    <li>@Graphwiz sur Twitter : 487 abonnés</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Principes : à quoi ça sert -->
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Principes</h2>
+        </div>
+        <p>Les usages sont assez généraux et nombreux dans les domaines scientifiques et
+            techniques.
+            Graphviz est utilisé notamment dans les domaines suivants :</p>
+        <ul>
+            <li>réseaux</li>
+            <li>bio-informatique (utilisation de l'informatique pour résoudre des
+                problèmes posés par la biologie ;
+                exemple : modélisation de l'évolution d'une population animale)</li>
+            <li>génie logiciel</li>
+            <li>bases de données</li>
+            <li>web design</li>
+            <li>machine learning</li>
+        </ul>
+    </section>
+
+    <!-- Schéma : représenter de façon visuelle comment elle fonctionne -->
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Schéma de fonctionnement</h2>
+        </div>
+        <div class="w3-card" style="width: 367px">
+            <img src="./graphs/schema_graphviz.jpg" alt="Schéma du module Graphviz"
+                style="margin: 10px 5px" />
+        </div>
+    </section>
+
+    <!-- Vocabulaire : quels sont les mots spécifiques à cette bibliothèque -->
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Vocabulaire</h2>
+        </div>
+
+        <ul>
+            <li>graphe : ensemble de noeuds (node en anglais) et d'arcs
+                entre ces noeuds (edge en anglais)
+            </li>
+            <li>graphe non orienté : les arcs se matérialisent par un trait ; on crée un
+                graphe non orienté avec l'objet Graph()<br />
+                Exemple :
+                <div class="w3-card" style="width: 378px; margin: 5px 0">
+                    <img src="./graphs/genealogie_no.jpg"
+                        alt="Généalogie d'Irène Joliot-Curie" style="margin: 10px 5px" />
+                </div>
+            </li>
+            <li>graphe orienté : graphe dont les arcs sont orientés d'un noeud vers un
+                autre ; un arc se matérialise par une flèche ; on créée un graphe orienté
+                avec l'objet Digraph()<br />
+                Le même exemple avec un graphe orienté :
+                <div class="w3-card" style="width: 378px; margin: 5px 0">
+                    <img src="./graphs/genealogie_o.jpg"
+                        alt="Généalogie d'Irène Joliot-Curie" style="margin: 10px 5px" />
+                </div>
+            </li>
+            <li>
+                cluster (grappe en français) : sous-ensemble d'un graphe constituant
+                lui-même un graphe ;
+                outre l'aspect de regroupement logique attendu dans le cadre de certains
+                algorithmes,
+                cela permet d'encadrer un ensemble de noeuds et de leur ajouter des
+                containtes de
+                positionnement
+            </li>
+            <li>DOT : langage qui décrit un organigramme (au format texte)<br />
+                code des deux graphes ci-dessus :
+                <div class="w3-row">
+                    <div class="w3-col" style="width:48%">
+                        <div class="w3-card">
+                            <div class="w3-code">
+                                graph Arbre_no {<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;label="Graphe non orienté"<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;labelloc=t<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;M [label="Marie Slodowska"]<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;P [label="Pierre Curie"]<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;I [label="Irène Curie"]<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;M -- I<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;P -- I<br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w3-col" style="width:4%">
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="w3-col" style="width:48%">
+                        <div class="w3-card">
+                            <div class="w3-code">
+                                graph Arbre_o {<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;label="Graphe orienté"<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;labelloc=t<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;M [label="Marie Slodowska"]<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;P [label="Pierre Curie"]<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;I [label="Irène Curie"]<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;M -&gt; I<br />
+                                &nbsp;&nbsp;&nbsp;&nbsp;P -&gt; I<br />
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Méthode : comment utiliser cette bibliothèque de façon orthodoxe</h2>
+        </div>
+        <p>La bibliothèque est simple : 3 objets uniquement, plus quelques fonctions de
+            bas niveaux.</p>
+        <p>Le point auquel il faut porter attention est le choix de l'agorithme :</p>
+        <!--https://graphviz.gitlab.io/_pages/pdf/dot.1.pdf-->
+        <ul>
+            <li>algorithme dot : destiné aux graphes orientés, acycliques ou de type
+                hiérarchie</li>
+            <li>algorithmes neato, fdp et sfdp : destinés aux graphes non orientés ; sfdp
+                s'accomode de grandes
+                quantités de données</li>
+            <li>algorithme twopi : place les noeuds sur des cercles concentriques à
+                partir d'un noeud choisi comme point
+                central (exemple visible
+                <a
+                    href="https://graphviz.gitlab.io/_pages/Gallery/twopi/twopi2.html">ici</a>)
+            </li>
+            <li>algorithme circo : les noeuds sont placés en cercle</li>
+            <!--http://melborne.github.io/2013/04/02/graphviz-layouts/-->
+            <li>algorithme osage : les noeuds sont regroupés en clusters
+                et le graphe est construit récursivement<br />
+                Exemple :
+                <div class="w3-card" style="width: 414px; margin: 5px 0">
+                    <img src="./graphs/osage.jpg"
+                        alt="Exemple de graphe avec l'algorithme osage"
+                        style="margin: 10px 5px" />
+                </div>
+            </li>
+            <!--http://heyrod.com/files/gv-cookbook-chapter-06-sample-20343.pdf-->
+            <li>algorithme patchwork : destiné à représenter les noeuds comme un
+                patchwork de rectangles de surface
+                variable pour rendre compte de leurs proportions relatives ; il n'y a pas
+                d'arc entre les noeuds ; on peut regrouper les noeuds en clusters<br />
+                Exemple :
+                <div class="w3-card" style="width: 168px; margin: 5px 0">
+                    <img src="./graphs/patchwork.jpg"
+                        alt="Exemple de graphe avec l'algorithme patchwork"
+                        style="margin: 10px 5px" />
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Contraintes</h2>
+        </div>
+        <p>Les contraintes :</p>
+        <ul>
+            <li>graphviz nécessite Python version 2.7 ou Python version 3.5 ou ultérieure
+            </li>
+            <li>il utilise le logiciel Graphviz qui doit être installé</li>
+            <li>suite à l'installation de Graphviz, le chemin vers les différents
+                algorithmes
+                listés dans la section Méthode doit être connu donc,
+                sous Windows, il doit être dans le PATH</li>
+            <li>graphviz est encore en version beta</li>
+            <li>graphviz est disponible en open source sous licence MIT</li>
+            <li>il n'y a pas de risque de sécurité marqué ou plutôt le risque est celui
+                du
+                logiciel Graphviz</li>
+        </ul>
+    </section>
+
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Technologies, langage employés en plus du Python</h2>
+        </div>
+        <p>Ne concerne que le langage DOT.</p>
+    </section>
+
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Présentation de la Bibliothèque</h2>
+        </div>
+
+        <p>Prérequis :</p>
+        <ul>
+            <li>télécharger Graphviz (35 Mo) : <a
+                    href="https://www.graphviz.org/download/">https://www.graphviz.org/download/</a>
+            </li>
+            <li>sur Windows, modifier la variable d'environnement PATH pour inclure le
+                chemin vers Graphviz :<ul>
+                    <li>soit accéder aux paramètres (roue crantée), dans la zone de
+                        recherche saisir
+                        <span class="w3-codespan">PATH</span>,
+                        choisir "Modifier les variables d'environnement pour votre
+                        compte",
+                        dans la fenêtre "Variables d'environnement", partie du haut,
+                        cliquer sur la variable <span class="w3-codespan">Path</span>,
+                        dans la fenêtre qui s'ouvre ajouter aux chemins dejà listés le
+                        chemin
+                        <span class="w3-codespan">"C:\Program Files
+                            (x86)\Graphviz2.38\bin"</span> (ou autre)</li>
+                    <li>soit ouvrir une fenêtre de commande : <span
+                            class="w3-tag w3-round">Windows + R</span>
+                        puis taper <span class="w3-codespan">cmd</span> et
+                        <span class="w3-codespan">set
+                            PATH=%PATH%;"C:\Program Files
+                            (x86)\Graphviz2.38\bin"</span> (ou autre)</li>
+                </ul>
+            </li>
+            <li>pour vérifier ces deux étapes, dans une fenêtre de commande,
+                taper <span class="w3-codespan">dot
+                    -V</span>, la version du programe dot.exe doit s'afficher
+            </li>
+            <li>dans votre IDE Python préféré, installer le module graphviz :
+                <span class="w3-codespan">python3 -m pip install
+                    graphviz</span></li>
+            <li>le codage peut se faire soit dans un fichier .py soit sous le
+                Jupyter Notebook</li>
+        </ul>
+
+        <p>Codage Python :</p>
+        <ul>
+            <li>choisir :
+                <ul>
+                    <li>le type de graphe, orienté ou non (objet
+                        <span class="w3-codespan">Digraph()</span>
+                        ou <span class="w3-codespan">Graph()</span>)
+                    </li>
+                    <li>le format du fichier "image" produit (paramètre
+                        <span class="w3-codespan">filename</span>)
+                    </li>
+                    <li>l'algorithme de calcul du graphe (paramètre
+                        <span class="w3-codespan">engine</span>)
+                    </li>
+                </ul>
+            </li>
+            <li>ajouter des attributs au graphe
+                (méthode <span class="w3-codespan">attr()</span>
+                avec en paramètres une clé et la valeur associée,
+                par exemple un intitulé avec
+                <span class="w3-codespan">label='mon intitulé'</span>)</li>
+            <li>créer les noeuds et leurs attributs
+                (méthode <span class="w3-codespan">node()</span>)
+            </li>
+            <li>créer les arcs et leurs paramètres
+                (méthode <span class="w3-codespan">edge()</span>)
+            </li>
+            <li>au besoin, créer des sous-graphes comme le graphe principal</li>
+            <li>ajouter les éventuels sous-graphes au graphe principal
+                (méthode <span class="w3-codespan">subgraph()</span>)
+            </li>
+            <li>générer le fichier image et éventuellement afficher
+                (méthodes <span class="w3-codespan">render()</span>
+                et <span class="w3-codespan">view()</span>)
+            </li>
+        </ul>
+    </section>
+
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Code exemple : code du schéma de la bibliothèque</h2>
+        </div>
+        <div class="w3-card">
+            <div class="w3-code">
+                from graphviz import Digraph
+                <br />#
+                <br />schema = Digraph(
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;name='Schema_Graphviz',
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;filename='graphs/schema_graphviz',
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;format='jpg',
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;# other possible formats : png, gv, jpeg,
+                ps, svg ....
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;engine='dot'
+                <br />)
+                <br />schema.attr(label='Fonctionnement de la bibliothèque graphviz')
+                <br />schema.attr(labelloc='t')
+                <br />schema.attr('node', shape='box')
+                <br />schema.node('graph_object', 'génération de l\'objet Graph en
+                Python')
+                <br />schema.node('dot_file', 'génération du fichier DOT')
+                <br />schema.node('display', 'affichage')
+                <br />schema.edge('graph_object', 'dot_file')
+
+                <br /># ===&gt; sous-graphe
+                <br />sub = Digraph(
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;name='cluster_graphviz',
+                <br />&nbsp;&nbsp;&nbsp;&nbsp;engine='dot'
+                <br />)
+                <br />sub.attr(label=' Logiciel Graphviz')
+                <br />sub.attr('node', shape='ellipse')
+                <br />sub.node('graphviz', 'exécution de Graphviz')
+                <br />sub.node('viz_file', 'génération du fichier "image"')
+                <br />sub.edge('graphviz', 'viz_file')
+                <br />schema.subgraph(sub)
+
+                <br /># ===&gt; arcs entre graphe et le sousgraphe
+                <br />schema.edge('dot_file', 'graphviz')
+                <br />schema.edge('viz_file', 'display')
+
+                <br /># ===&gt; génération du fichier jpg
+                <br />schema.render()
+            </div>
+        </div>
+    </section>
+
+    <!-- 1 pratique avec les autres étudiants : vous ferez coder les autres étudiants -->
+    <section class="w3-container" id="exercice">
+        <div class="w3-panel w3-pale-green">
+            <h2>Exercice</h2>
+        </div>
+
+        <p>Coder le graphe de la base de données utilisée lors des exercices Pandas avec
+            J. Pasco :</p>
+        <p>Dans un premier temps, se contenter de produire un graphique avec des noeuds
+            simplifiés
+            (réduits au nom des tables) et les arcs (sans leurs annotations).
+            Vous aurez besoin d'aide pour faire apparaître les champs des tables.</p>
+        <div class="w3-card" style="width: 490px">
+            <img src="./graphs/bdd.jpg" alt="Graphe de la BDD d'un hôpital"
+                style="margin: 10px 5px" />
+        </div>
+
+        <p><button onclick="document.getElementById('help').style.display='block'"
+                class="w3-button w3-teal w3-round">Aide</button>
+            <!--<button onclick="document.getElementById('help').style.display='block'"
+            class="w3-button w3-teal w3-round">Aide</button>-->
+            <a class="w3-button w3-teal w3-round" href="#annexe1">Solution</a>
+        </p>
+
+        <div id="help" class="w3-modal">
+            <div class="w3-container">
+                <div class="w3-modal-content" style="width: 33%">
+                    <span onclick="document.getElementById('help').style.display='none'"
+                        class="w3-button w3-display-topright">&times;</span>
+                    <img src="./graphs/bdd_help.jpg" alt="Aide pour l'exercice"
+                        style="margin: 10px 30px" />
+                    <div class="w3-card" style="margin: 5px 0">
+                        <div class="w3-code">
+                            bdd_help = graphviz.Graph(<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;name='bdd_help',<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;filename='graphs/bdd_help',<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;format='jpg'<br />
+                            )<br />
+                            bdd_help.node('matable', '''&lt;<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;table&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;&lt;td
+                            bgcolor="yellow">matable&lt;/td&gt;&lt;/tr&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;&lt;td&gt;id&lt;/td&gt;&lt;/tr&gt;<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;/table&gt;&gt;''')
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Ressources : sites web, vidéos, infographie -->
+    <section class="w3-container">
+        <div class="w3-panel w3-pale-green">
+            <h2>Ressources</h2>
+        </div>
+        <!-- Logiciel Graphviz -->
+        <p>Logiciel Graphviz :</p>
+        <ul class="w3-ul">
+            <li>
+                <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a href="http://www.graphviz.org">
+                        graphviz.org
+                    </a>
+                </span>
+                site officiel
+            </li>
+            <li>
+                <span class="w3-tag w3-round w3-pale-yellow">
+                    <a href="http://graphviz.org/documentation/">
+                        graphviz.org/documentation/
+                    </a>
+                </span>
+                documentation officielle
+            </li>
+            <li>
+                <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a href="http://www.pixelglow.com/graphviz/">
+                        www.pixelglow.com/graphviz/
+                    </a>
+                </span>
+                téléchargement MacOS (site alternatif)
+            </li>
+            <li> <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a href="https://graphviz.gitlab.io/gallery/">
+                        graphviz.gitlab.io/gallery/
+                    </a>
+                </span>
+                exemples de graphes
+            </li>
+            <li>
+                <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a href="https://www.tonyballantyne.com/graphs.html">
+                        www.tonyballantyne.com/graphs.html
+                    </a>
+                </span>
+                très intéressant site tiers de présentation de Dot et Graphviz, récent,
+                assez complet et en anglais
+            </li>
+            <li>
+                <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a href="https://cyberzoide.developpez.com/graphviz/">
+                        cyberzoide.developpez.com/graphviz/
+                    </a>
+                </span>
+                autre site tiers, ancien mais en français
+            </li>
+            <li>
+                <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a
+                        href="https://www.supinfo.com/articles/single/2207-introduction-graphviz">
+                        www.supinfo.com/articles/single/2207-introduction-graphviz
+                    </a>
+                </span>
+                autre site tiers, récent, avec des informations plus basiques, utilisant
+                le module Python et en français
+            </li>
+        </ul>
+
+        <!-- Module Python Graphviz -->
+        <p>Module python graphviz :</p>
+        <ul class="w3-ul">
+            <li>
+                <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a href="https://pypi.org/project/graphviz/">pypi.org/project/graphviz/
+                    </a>
+                </span>
+                page officielle sur le repository PyPI
+            </li>
+            <li>
+                <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a href="https://graphviz.readthedocs.io/en/stable/index.html">
+                        graphviz.readthedocs.io/en/stable/index.html
+                    </a>
+                </span>
+                documentation officielle
+            </li>
+            <li>
+                <span class="w3-tag w3-round-large w3-pale-yellow">
+                    <a href="http://home.uni-leipzig.de/sbank/">
+                        home.uni-leipzig.de/sbank/
+                    </a>
+                </span>
+                page de Sebastian Bank (créateur du module) à l'Université de Leipzig
+            </li>
+        </ul>
+
+    </section>
+
+    <!-- Annexe : solution de l'exercice -->
+    <section class="w3-container" id="annexe1">
+        <div class="w3-panel w3-pale-green">
+            <h2>Solution de l'exercice</h2>
+        </div>
+        <p><a class="w3-button w3-teal w3-round" href="#exercice">Enoncé</a></p>
+
+        <div class="w3-card">
+            <div class="w3-code">
+                <pre>import graphviz
+bdd = graphviz.Digraph(
+    name='bdd',
+    filename='graphs/bdd',
+    format='jpg',
+    engine='dot',
+    node_attr={'shape': 'none'},
+    graph_attr={'rankdir': 'LR',
+                'label': 'BDD hôpital',
+                'labelloc': 't'}
+)
+
+bdd.node('pat', '''&lt;
+    &lt;table border="0" cellborder="1" cellspacing="0"&gt;
+        &lt;tr&gt;&lt;td bgcolor="yellow"&gt;pat&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td port="pat_id"&gt;id&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;nom&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;prenom&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;date_naissance&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;sexe&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;statut_vital&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;date_deces&lt;/td&gt;&lt;/tr&gt;
+        &lt;/table&gt;&gt;''')
+
+bdd.node('sej', '''&lt;
+    &lt;table border="0" cellborder="1" cellspacing="0"&gt;
+        &lt;tr&gt;&lt;td bgcolor="yellow"&gt;sej&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td port="sej_id"&gt;id&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td port="sej_patient_id"&gt;patient_id&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;date_entree&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;date_sortie&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;mode_sortie&lt;/td&gt;&lt;/tr&gt;
+        &lt;/table&gt;&gt;''')
+
+bdd.node('mvt', '''&lt;
+    &lt;table border="0" cellborder="1" cellspacing="0"&gt;
+        &lt;tr&gt;&lt;td bgcolor="yellow"&gt;mvt&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td port="mvt_id"&gt;id&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td port="mvt_sejour_id"&gt;sejour_id&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td port="mvt_service_id"&gt;service_id&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;date_entree&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;date_sortie&lt;/td&gt;&lt;/tr&gt;
+        &lt;/table&gt;&gt;''')
+
+bdd.node('srv', '''&lt;
+    &lt;table border="0" cellborder="1" cellspacing="0"&gt;
+        &lt;tr&gt;&lt;td bgcolor="yellow"&gt;srv&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td port="srv_id"&gt;id&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td port="srv_parent_id"&gt;parent_id&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;nom&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr&gt;&lt;td&gt;categorie&lt;/td&gt;&lt;/tr&gt;    
+        &lt;/table&gt;&gt;''')
+
+bdd.edge('sej:sej_patient_id', 'pat:pat_id', headlabel='1', taillabel='0,n')
+bdd.edge('mvt:mvt_sejour_id', 'sej:sej_id', headlabel='1', taillabel='0,n')
+bdd.edge('srv:srv_parent_id', 'srv:srv_id', headlabel='1', taillabel='0,n')
+bdd.edge('mvt:mvt_service_id', 'srv:srv_id', headlabel='1', taillabel='0,n')
+bdd.view()</pre>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+
+</html>
